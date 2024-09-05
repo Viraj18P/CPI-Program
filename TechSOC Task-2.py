@@ -43,7 +43,7 @@ def SPI(sem):
         
         semList=list(dataG[username][sem].values())
         total=0
-        
+        sumSPI=0
         
         for i in semList:
             if i!="NA":
@@ -54,51 +54,49 @@ def SPI(sem):
         
         print("Semester "+str(n)+" SPI : \n"+str(total/len(semList)))
         n=n+1
+        sumSPI=sumSPI+(total/len(semList))
+    print("CPI="+str(sumSPI/8))
+    
 
+def loginS(username):
+        
 
-"""def gradeU(sem,course):
+        with open(filepath,'r') as file:
+            data=json.load(file)
 
-                            while True:
-                                
-                                username=input("You want to manage which student's grade? \nEnter Student Username: ")
+        
+        if username in data:
+            password=input("Enter your password: ")
+            
+            if data[username]==password:
+                print("Login Succesful")
+                with open(filepathG,'r') as file:
+                    dataG=json.load(file)
+                print(username+" Dashboard")
 
-                                with open(filepathG,'r') as file:
-                                    dataG=json.load(file)                                
-                            
-                                if askg in dataG[username][sem]:
-                                    enterG=input("Enter grade(on scale 1-10): ")
-
-                                    with open(filepathG,'r') as file:
-                                        dataG=json.load(file)
-                                    valid=["NA",1,2,3,4,5,6,7,8,9,10]
-                                    if enterG in valid:
-                                        dataG[username][semg][askg]=enterG
-                                    
-                                        with open(filepathG,'w') as file:
-                                            json.dump(dataG,file,indent=4)
-                                    else:
-                                        print("enter valid input: (either 1-10 or NA)\nRepeat the process.")
-
-                                    askc=input("Grades updated succesfully, \n if you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
-                                    if askc=="e":
-                                        y=False
-                                        break
-                                    if askc=="s":
-                                        with open(filepathG,'r') as file:
-                                            dataG=json.load(file)
-                                        print(username+" Dashboard")
-                                        i=1
+                i=1
                 
-                                        for sem in dataG[username]:
-                                            ii=str(i)
-                                            print("Semester "+ii+" : ")
-                                            print(dataG[username][sem])
+                for sem in dataG[username]:
+                    ii=str(i)
+                    print("Semester "+ii+" : ")
+                    print(dataG[username][sem])
                     
-                                            i=i+1
-                                        y=False
-                                        break
-                                else:
-                                    print("Enter valid course code.")"""
+                    i=i+1
+                
+
+                print(SPI(dataG[username]))
+    
+                
+                    
+                    
+                
+
+
+                    
+            else:
+                print("Wrong Password. Please enter correct password. Ab bhai kam mahabharat ke liye idhar bhi loop chahiye")
+        else:
+            print("This username does not exist, please enter correct username or try SignUp to create new username.")
 
 
     
@@ -174,6 +172,10 @@ if signup=="S":
             with open(filepathG,'w') as file:
                 json.dump(dataG,file,indent=4)
 
+            print("You can proceed for login: ")
+            username=input("Enter your username: (Format: 'Name Surname')")
+            loginS(username)
+
     if ask1=="A":
         with open(filepathA,'r') as file:
             data=json.load(file)
@@ -216,6 +218,9 @@ if signup=="L":
                 
 
                 print(SPI(dataG[username]))
+            
+                
+
     
                 
                     
@@ -254,119 +259,68 @@ if signup=="L":
 
                     if username in data:
                         
-                        """semg=input("Enter the course semester: (1-8)")"""
-                        """askg=input("Available Courses:\n Semester 1: MA101/EE101/HS101 \n Semester 2: MA102/EE102/HAS102 \n Semester 3: MA103/EE103/HS103 \n Semester 4: MA104/EE104/HS104 \n Semester 5: MA105/EE105/HS105 \n Semester 6: MA106/EE106/HS106 \n Semester 7: BTP/Internship \n Semester 8: EE108 \n For which course do you want to manage grades?")"""
-                        
-                        """gradeU(semg,askg)"""
-
-
-                        while True:
+                            while True:
                                 
+                                semg=input("Enter the course semester: (1-8)")
                                 askg=input("Available Courses:\n Semester 1: MA101/EE101/HS101 \n Semester 2: MA102/EE102/HAS102 \n Semester 3: MA103/EE103/HS103 \n Semester 4: MA104/EE104/HS104 \n Semester 5: MA105/EE105/HS105 \n Semester 6: MA106/EE106/HS106 \n Semester 7: BTP/Internship \n Semester 8: EE108 \n For which course do you want to manage grades?")
+                                semgg="sem"+str(semg)
+
+                                with open(filepathG,'r') as file:
+                                    dataG=json.load(file)                                
                             
-                                if askg=="EE101":
+                                if askg in dataG[username][semgg]:
                                     enterG=input("Enter grade(on scale 1-10): ")
 
                                     with open(filepathG,'r') as file:
                                         dataG=json.load(file)
                                     valid=["NA","1","2","3","4","5","6","7","8","9","10"]
                                     if str(enterG) in valid:
-                                        dataG[username]["sem1"]["EE101"]=enterG
+                                        dataG[username][semgg][askg]=enterG
                                     
                                         with open(filepathG,'w') as file:
                                             json.dump(dataG,file,indent=4)
+                                        askc=input("Grades updated succesfully, \n if you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
+                                        if askc=="e":
+                                            y=False
+                                            break
+                                        if askc=="s":
+                                            with open(filepathG,'r') as file:
+                                                dataG=json.load(file)
+                                            print(username+" Dashboard")
+                                            i=1
+                    
+                                            for sem in dataG[username]:
+                                                ii=str(i)
+                                                print("Semester "+ii+" : ")
+                                                print(dataG[username][sem])
+                        
+                                                i=i+1
+                                            y=False
+                                            break
                                     else:
                                         print("enter valid input: (either 1-10 or NA)\nRepeat the process.")
 
-                                    askc=input("Grades updated succesfully, \n if you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
-                                    if askc=="e":
-                                        y=False
-                                        break
-                                    if askc=="s":
-                                        with open(filepathG,'r') as file:
-                                            dataG=json.load(file)
-                                        print(username+" Dashboard")
-                                        i=1
-                
-                                        for sem in dataG[username]:
-                                            ii=str(i)
-                                            print("Semester "+ii+" : ")
-                                            print(dataG[username][sem])
+                                        askc=input("If you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
+                                        if askc=="e":
+                                            y=False
+                                            break
+                                        if askc=="s":
+                                            with open(filepathG,'r') as file:
+                                                dataG=json.load(file)
+                                            print(username+" Dashboard")
+                                            i=1
                     
-                                            i=i+1
-                                        y=False
-                                        break
-                                
-                                
-
-                                if askg=="MA101":
-                                    enterG=input("Enter grade(on scale 1-10): ")
-                                    with open(filepathG,'r') as file:
-                                        dataG=json.load(file)
-                            
-                                    dataG[username]["sem1"]["MA101"]=enterG
-                            
-                                    with open(filepathG,'w') as file:
-                                        json.dump(dataG,file,indent=4)
-                                    askc=input("Grades updated succesfully, \n if you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
-                                    if askc=="e":
-                                        y=False
-                                        break
-                                    if askc=="s":
-                                        with open(filepathG,'r') as file:
-                                            dataG=json.load(file)
-                                        print(username+" Dashboard")
-                                        i=1
-                
-                                        for sem in dataG[username]:
-                                            ii=str(i)
-                                            print("Semester "+ii+" : ")
-                                            print(dataG[username][sem])
-                    
-                                            i=i+1
-                                        y=False
-                                        break
-
-                                if askg=="HS101":
-                                    enterG=input("Enter grade(on scale 1-10): ")
-                                    with open(filepathG,'r') as file:
-                                        dataG=json.load(file)
-                            
-                                    dataG[username]["sem1"]["HS101"]=enterG
-                            
-                                    with open(filepathG,'w') as file:
-                                        json.dump(dataG,file,indent=4)
-                                    askc=input("Grades updated succesfully, \n if you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
-                                    if askc=="e":
-                                        y=False
-                                        break
-                                    
-                                    if askc=="s":
-
-                                        with open(filepathG,'r') as file:
-                                            dataG=json.load(file)
-                                        print(username+" Dashboard")
-                                        i=1
-                
-                                        for sem in dataG[username]:
-                                            ii=str(i)
-                                            print("Semester "+ii+" : ")
-                                            print(dataG[username][sem])
-                    
-                                            i=i+1
-                                        y=False
-                                        break
-
-
-
+                                            for sem in dataG[username]:
+                                                ii=str(i)
+                                                print("Semester "+ii+" : ")
+                                                print(dataG[username][sem])
+                        
+                                                i=i+1
+                                            y=False
+                                            break
                                 else:
                                     print("Enter valid course code.")
-
-                        
-
-
-
-
+                    
                 else:
                     
                     print("Wrong Password. Please enter correct password.(Total only 3 tries)")
