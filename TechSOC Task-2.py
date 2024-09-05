@@ -66,33 +66,46 @@ def loginS(username):
 
         
         if username in data:
-            password=input("Enter your password: ")
-            
-            if data[username]==password:
-                print("Login Succesful")
-                with open(filepathG,'r') as file:
-                    dataG=json.load(file)
-                print(username+" Dashboard")
 
-                i=1
+            m=0
+            n=True
+            while m<3 and n:
+
+                password=input("Enter your password: ")
                 
-                for sem in dataG[username]:
-                    ii=str(i)
-                    print("Semester "+ii+" : ")
-                    print(dataG[username][sem])
+                if data[username]==password:
+                    print("Login Succesful\n")
+
+                    with open(filepathG,'r') as file:
+                        dataG=json.load(file)
+                    print(username+" Dashboard\n")
+
+                    i=1
                     
-                    i=i+1
-                
+                    for sem in dataG[username]:
+                        ii=str(i)
+                        print("Semester "+ii+" : ")
+                        print(dataG[username][sem])
+                        
+                        i=i+1
+                    
 
-                print(SPI(dataG[username]))
-            
-            else:
-                print("Wrong Password. Please enter correct password. Ab bhai kam mahabharat ke liye idhar bhi loop chahiye")
+                    print(SPI(dataG[username]))
+                    n=False
+                    break
+                
+                    
+       
+                else:
+                    print("Wrong Password. Please enter correct password.(Total only 3 tries)")
+                    m=m+1
         else:
             print("This username does not exist, please enter correct username or try SignUp to create new username.")
 
 def loginA(username):
 
+        with open(filepathA,'r') as file:
+            dataA=json.load(file)
 
         if username in dataA:
             
