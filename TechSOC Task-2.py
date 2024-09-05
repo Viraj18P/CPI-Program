@@ -35,8 +35,7 @@ def addkey(filepath,newkey,newvalue):
     data[username]=password
     with open(filepath,'w') as file:
         json.dump(data,file,indent=4)
-filepathG="c:\\Users\\ADMIN\\Desktop\\Python\\dataG.json"    
-
+   
 def SPI(sem):
 
     with open(filepathG,'r') as file:
