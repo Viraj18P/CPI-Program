@@ -296,7 +296,10 @@ if signup=="S":
 
             username=input("Enter your username: (Format: 'Name Surname')")
             loginA(username)
-
+            
+    else:
+        print("Enter valid input. Either 'A' or 'S' in capital")
+        
 if signup=="L":
     print("Are you a student or an admin?")
     ask1=input("If student enter S, if admin enter A")
@@ -321,8 +324,12 @@ if signup=="L":
     
         username=input("Enter your username: (Format: 'Name Surname')")
         loginA(username)
-
-
+        
+    else:
+        print("Enter valid input.Either 'A' or 'S' in capital")
+        
+else:
+    print("Enter valid input. Either 'S' or 'L' in capital.")
 
         
 
