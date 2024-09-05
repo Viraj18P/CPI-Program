@@ -39,11 +39,12 @@ filepathG="c:\\Users\\ADMIN\\Desktop\\Python\\dataG.json"
 
 def SPI(sem):
     n=1
+    sumSPI=0
     for sem in dataG[username]:
         
         semList=list(dataG[username][sem].values())
         total=0
-        sumSPI=0
+        
         
         for i in semList:
             if i!="NA":
