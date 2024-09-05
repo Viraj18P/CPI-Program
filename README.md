@@ -3,6 +3,7 @@
 
 Code starts from line 209.
 Above i have defined variable and fucntions.
+Note-Download all files before running code on pc.
 
 -First i ask user for SignUp/Login
 -Then user is student/admin based on that i have main 4 blocks of code. I have defined loginS/loginA functions above.
