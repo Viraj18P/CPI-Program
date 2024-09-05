@@ -45,6 +45,7 @@ def SPI(sem):
     for sem in dataG[username]:
         
         semList=list(dataG[username][sem].values())
+        semListM=[]
         total=0
         
         
@@ -52,12 +53,11 @@ def SPI(sem):
             if i!="NA":
                 ii=int(i)
                 total=total+ii
-            
-            
+                semListM.append(i)
         
-        print("Semester "+str(n)+" SPI : \n"+str(total/len(semList)))
+        print("Semester "+str(n)+" SPI : \n"+str(total/len(semListM)))
         n=n+1
-        sumSPI=sumSPI+(total/len(semList))
+        sumSPI=sumSPI+(total/len(semListM))
     print("CPI="+str(sumSPI/8))
     
 
