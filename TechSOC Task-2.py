@@ -132,7 +132,7 @@ def loginA(username):
                                 while True:
                                         
                                     semg=input("Enter the course semester: (1-8)")
-                                    askg=input("Available Courses:\n Semester 1: MA101/EE101/HS101 \n Semester 2: MA102/EE102/HAS102 \n Semester 3: MA103/EE103/HS103 \n Semester 4: MA104/EE104/HS104 \n Semester 5: MA105/EE105/HS105 \n Semester 6: MA106/EE106/HS106 \n Semester 7: BTP/Internship \n Semester 8: EE108 \n For which course do you want to manage grades?")
+                                    askg=input("Available Courses(4 credit each):\n Semester 1: MA101/EE101/HS101 \n Semester 2: MA102/EE102/HAS102 \n Semester 3: MA103/EE103/HS103 \n Semester 4: MA104/EE104/HS104 \n Semester 5: MA105/EE105/HS105 \n Semester 6: MA106/EE106/HS106 \n Semester 7: BTP/Internship \n Semester 8: EE108 \n For which course do you want to manage grades?")
                                     semgg="sem"+str(semg)
 
                                     with open(filepathG,'r') as file:
