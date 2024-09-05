@@ -85,19 +85,105 @@ def loginS(username):
                 
 
                 print(SPI(dataG[username]))
-    
-                
-                    
-                    
-                
-
-
-                    
+            
             else:
                 print("Wrong Password. Please enter correct password. Ab bhai kam mahabharat ke liye idhar bhi loop chahiye")
         else:
             print("This username does not exist, please enter correct username or try SignUp to create new username.")
 
+def loginA(username):
+
+
+        if username in dataA:
+            
+            x=0
+            y = True
+            while x<3 and y:
+
+                password=input("Enter your password: ")
+                
+                if dataA[username]==password:
+                    print("Login Succesful")
+
+                    abc=False
+                    while not abc:
+                        studentusername=input("You want to manage which student's grade? \n Enter Student Username: ")
+                        with open(filepath,'r') as file:
+                            data=json.load(file)
+                        
+                            if studentusername in data:
+                                abc=True
+                                while True:
+                                        
+                                    semg=input("Enter the course semester: (1-8)")
+                                    askg=input("Available Courses:\n Semester 1: MA101/EE101/HS101 \n Semester 2: MA102/EE102/HAS102 \n Semester 3: MA103/EE103/HS103 \n Semester 4: MA104/EE104/HS104 \n Semester 5: MA105/EE105/HS105 \n Semester 6: MA106/EE106/HS106 \n Semester 7: BTP/Internship \n Semester 8: EE108 \n For which course do you want to manage grades?")
+                                    semgg="sem"+str(semg)
+
+                                    with open(filepathG,'r') as file:
+                                        dataG=json.load(file)                                
+                                    
+                                    if askg in dataG[studentusername][semgg]:
+                                        enterG=input("Enter grade(on scale 1-10): ")
+
+                                        with open(filepathG,'r') as file:
+                                            dataG=json.load(file)
+                                        valid=["NA","1","2","3","4","5","6","7","8","9","10"]
+                                        if str(enterG) in valid:
+                                            dataG[studentusername][semgg][askg]=enterG
+                                            
+                                            with open(filepathG,'w') as file:
+                                                json.dump(dataG,file,indent=4)
+                                            askc=input("Grades updated succesfully, \n if you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
+                                            if askc=="e":
+                                                y=False
+                                                break
+                                            if askc=="s":
+                                                with open(filepathG,'r') as file:
+                                                    dataG=json.load(file)
+                                                print(studentusername+" Dashboard")
+                                                i=1
+                            
+                                                for sem in dataG[studentusername]:
+                                                    ii=str(i)
+                                                    print("Semester "+ii+" : ")
+                                                    print(dataG[studentusername][sem])
+                                
+                                                    i=i+1
+                                                y=False
+                                                break
+                                        else:
+                                            print("enter valid input: (either 1-10 or NA)\nRepeat the process.")
+
+                                            askc=input("If you want to exit press 'e'\n if you want to see student updated dashboard press 's' \n if you want to continue managing grades press anything except 'e','s' : ")
+                                            if askc=="e":
+                                                y=False
+                                                break
+                                            if askc=="s":
+                                                with open(filepathG,'r') as file:
+                                                    dataG=json.load(file)
+                                                print(studentusername+" Dashboard")
+                                                i=1
+                            
+                                                for sem in dataG[username]:
+                                                    ii=str(i)
+                                                    print("Semester "+ii+" : ")
+                                                    print(dataG[studentusername][sem])
+                                
+                                                    i=i+1
+                                                y=False
+                                                break
+                                    else:
+                                        print("Enter valid course code.")
+                            else:
+                                print("Enter valid student username.")
+                                
+                else:
+                    
+                    print("Wrong Password. Please enter correct password.(Total only 3 tries)")
+                    x=x+1
+
+        else:
+            print("This username does not exist, please enter correct username or try SignUp to create new username.")
 
     
 filepath="c:\\Users\\ADMIN\\Desktop\\Python\\data.json"
@@ -185,6 +271,15 @@ if signup=="S":
         else:
             password=input("Enter your password: ")
             addkey(filepathA,username,password)
+
+            print("You can proceed for login: ")
+            
+            with open(filepathA,'r') as file:
+                dataA=json.load(file)
+
+            username=input("Enter your username: (Format: 'Name Surname')")
+            loginA(username)
+
 if signup=="L":
     print("Are you a student or an admin?")
     ask1=input("If student enter S, if admin enter A")
@@ -199,39 +294,39 @@ if signup=="L":
 
         username=input("Enter your username: (Format: 'Name Surname')")
         if username in data:
-            password=input("Enter your password: ")
-            
-            if data[username]==password:
-                print("Login Succesful\n")
 
-                with open(filepathG,'r') as file:
-                    dataG=json.load(file)
-                print(username+" Dashboard\n")
+            m=0
+            n=True
+            while m<3 and n:
 
-                i=1
+                password=input("Enter your password: ")
                 
-                for sem in dataG[username]:
-                    ii=str(i)
-                    print("Semester "+ii+" : ")
-                    print(dataG[username][sem])
+                if data[username]==password:
+                    print("Login Succesful\n")
+
+                    with open(filepathG,'r') as file:
+                        dataG=json.load(file)
+                    print(username+" Dashboard\n")
+
+                    i=1
                     
-                    i=i+1
-                
+                    for sem in dataG[username]:
+                        ii=str(i)
+                        print("Semester "+ii+" : ")
+                        print(dataG[username][sem])
+                        
+                        i=i+1
+                    
 
-                print(SPI(dataG[username]))
-            
-                
-
-    
+                    print(SPI(dataG[username]))
+                    n=False
+                    break
                 
                     
-                    
-                
-
-
-                    
-            else:
-                print("Wrong Password. Please enter correct password. Ab bhai kam mahabharat ke liye idhar bhi loop chahiye")
+       
+                else:
+                    print("Wrong Password. Please enter correct password.(Total only 3 tries)")
+                    m=m+1
         else:
             print("This username does not exist, please enter correct username or try SignUp to create new username.")
     
@@ -247,7 +342,7 @@ if signup=="L":
             
             x=0
             y = True
-            while x<3 & y:
+            while x<3 and y:
 
                 password=input("Enter your password: ")
                 
@@ -340,7 +435,6 @@ if signup=="L":
 
     
         
-
 
 
 
