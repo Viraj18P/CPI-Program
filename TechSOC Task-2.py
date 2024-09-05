@@ -202,10 +202,11 @@ if signup=="L":
             password=input("Enter your password: ")
             
             if data[username]==password:
-                print("Login Succesful")
+                print("Login Succesful\n")
+
                 with open(filepathG,'r') as file:
                     dataG=json.load(file)
-                print(username+" Dashboard")
+                print(username+" Dashboard\n")
 
                 i=1
                 
@@ -253,11 +254,11 @@ if signup=="L":
                 if dataA[username]==password:
                     print("Login Succesful")
                     
-                    username=input("You want to manage which student's grade? \n Enter Student Username: ")
+                    studentusername=input("You want to manage which student's grade? \n Enter Student Username: ")
                     with open(filepath,'r') as file:
                         data=json.load(file)
 
-                    if username in data:
+                    if studentusername in data:
                         
                             while True:
                                 
@@ -268,14 +269,14 @@ if signup=="L":
                                 with open(filepathG,'r') as file:
                                     dataG=json.load(file)                                
                             
-                                if askg in dataG[username][semgg]:
+                                if askg in dataG[studentusername][semgg]:
                                     enterG=input("Enter grade(on scale 1-10): ")
 
                                     with open(filepathG,'r') as file:
                                         dataG=json.load(file)
                                     valid=["NA","1","2","3","4","5","6","7","8","9","10"]
                                     if str(enterG) in valid:
-                                        dataG[username][semgg][askg]=enterG
+                                        dataG[studentusername][semgg][askg]=enterG
                                     
                                         with open(filepathG,'w') as file:
                                             json.dump(dataG,file,indent=4)
@@ -286,13 +287,13 @@ if signup=="L":
                                         if askc=="s":
                                             with open(filepathG,'r') as file:
                                                 dataG=json.load(file)
-                                            print(username+" Dashboard")
+                                            print(studentusername+" Dashboard")
                                             i=1
                     
-                                            for sem in dataG[username]:
+                                            for sem in dataG[studentusername]:
                                                 ii=str(i)
                                                 print("Semester "+ii+" : ")
-                                                print(dataG[username][sem])
+                                                print(dataG[studentusername][sem])
                         
                                                 i=i+1
                                             y=False
@@ -307,20 +308,22 @@ if signup=="L":
                                         if askc=="s":
                                             with open(filepathG,'r') as file:
                                                 dataG=json.load(file)
-                                            print(username+" Dashboard")
+                                            print(studentusername+" Dashboard")
                                             i=1
                     
                                             for sem in dataG[username]:
                                                 ii=str(i)
                                                 print("Semester "+ii+" : ")
-                                                print(dataG[username][sem])
+                                                print(dataG[studentusername][sem])
                         
                                                 i=i+1
                                             y=False
                                             break
                                 else:
                                     print("Enter valid course code.")
-                    
+                    else:
+                        print("Enter valid student username.")
+                        break
                 else:
                     
                     print("Wrong Password. Please enter correct password.(Total only 3 tries)")
