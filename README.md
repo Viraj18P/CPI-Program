@@ -1,5 +1,5 @@
-#TechSOC Task-2
-#BY-Viraj Samir Patel
+# TechSOC Task-2
+# BY-Viraj Samir Patel
 
 Code starts from line 209.
 Above i have defined variable and fucntions.
